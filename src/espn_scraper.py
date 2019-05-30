@@ -42,22 +42,22 @@ class espn_player_scraper():
         player_info_str = player_row_soup.text
 
         # Get player name
-        name_pattern = re.compile(r'[A-Za-z ]+')
+        name_pattern = re.compile(r"[A-Za-z '.-]+")
         name_result = re.search(name_pattern, player_info_str)
 
         if name_result is not None:
             player_name = name_result.group(0)
         else:
-            player_name = "NA"
+            player_name = np.nan
 
         # Get player position
-        position_pattern = re.compile(r'[A-Za-z ]+[0-9]+([A-Z]+)[0-9]+')
+        position_pattern = re.compile(r"[A-Za-z '.-]+[0-9]+([A-Z]+)[0-9]+")
         position_result = re.search(position_pattern, player_info_str)
         
         if position_result is not None:
             player_position = position_result.group(1)
         else:
-            player_position = "NA"
+            player_position = np.nan
 
         # Get player ESPN id. This id is different than the NBA player id
         player_espn_url = player_row_soup.find('a')['href']
@@ -66,7 +66,7 @@ class espn_player_scraper():
         if player_id_result is not None:
             player_id = player_id_result.group(0)
         else:
-            player_id = "NA"
+            player_id = np.nan
 
         return [player_name, player_position, player_id, player_espn_url]
     
