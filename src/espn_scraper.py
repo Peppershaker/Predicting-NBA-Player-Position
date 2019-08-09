@@ -65,8 +65,17 @@ class espn_player_scraper():
 
         if position_result is not None:
             player_position = position_result.group(1)
+
         else:
-            player_position = np.nan
+            # Handle some edge cases where name and position are mixed together
+            result = re.search(re.compile('PG$|C$|SG$|SF$|PF$'), player_name)
+
+            if result is not None:
+                # found
+                player_position = result[0]
+                player_name = player_name[:-len(player_position)]
+            else:
+                player_position = np.nan
 
         # Get player ESPN id. This id is different than the NBA player id
         player_espn_url = player_row_soup.find('a')['href']
