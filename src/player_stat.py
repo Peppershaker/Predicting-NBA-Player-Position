@@ -1,7 +1,5 @@
 import pandas as pd
 from nba_py import player
-import sys
-sys.path.append('/Users/victor/Documents/code/nba_api')
 
 
 class NoDataError(Exception):
@@ -15,7 +13,7 @@ def get_player_stat(player_id):
     data such as shooting, blocking, rebound etc...
     """
     # Extracting shooting and blocking columns
-    player_shot_block_raw = player.PlayerShootingSplits(player_id).shot_areas()
+    player_shot_block_raw = player.PlayerShootingSplits(player_id, season='2018-19').shot_areas()
 
     if player_shot_block_raw.shape[0] == 0:
         raise NoDataError("No data for {}".format(player_id))
