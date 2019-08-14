@@ -16,7 +16,6 @@ def top_k_accuracy_score(y_true, y_pred_proba, k):
         top_k_accuracy_score : float
             top k accuracy score
     """
-    print(y_pred_proba)
 
     if len(y_true.shape) == 2:
         y_true = np.argmax(y_true, axis=1)
